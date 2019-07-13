@@ -4,6 +4,62 @@ reload(sys)
 from bs4 import BeautifulSoup
 sys.setdefaultencoding('utf-8')
 import json
+from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+import time
+
+def getComment():
+    caps = webdriver.DesiredCapabilities().FIREFOX
+    caps["marionette"] = False
+    binary = FirefoxBinary(r'firefox')
+    driver = webdriver.Firefox(firefox_binary = binary, capabilities = caps)
+    driver.get("http://www.santostang.com/2017/03/02/hello-world/")
+
+    for x in range(0, 10):
+        for i in range(0, 2):
+            try:
+                load_more = driver.find_element_by_css_selector('div.tie-load-more')
+                load_more.click();
+            except:
+                pass
+            comments = drivers.find_elements_by_css_selector('div.bdy-inner')
+        for eachcomment in comments:
+            content = eachcomment.find_element_by_tag_name('p')
+            print(content.text)
+        try:
+            next_page = driver.find_element_by_css_selector('span.z-next')
+            next_page.click()
+            time.sleep(5)
+        except:
+            break
+
+def getProComment():
+    caps = webdriver.DesiredCapabilities().FIREFOX
+    caps["marionette"] = False
+    binary = FirefoxBinary(r'fixefox')
+    fp = webdriver.FirefoxProfile()
+    fp.set_preference("permissions.default.stylesheet",2)
+    driver = webdriver.Firefox(firefox_binary=binary, firefox_profile=fp, capabilities=caps)
+    driver.get("http://www.santostang.com/2017/03/02/hello-world/")
+
+
+def getRentalShenzhen()
+    caps = webdriver.DesiredCapabilities().FIREFOX
+    caps['marionette'] = False
+    binary = FirefoxBinary(r'firefox')
+    driver = webdriver.Firefox(firefox_binary = binary, capabilities = caps)
+    driver.get("http://zh.airbnb.com/s/Shenzhen--China?page=1")
+    rent_list = driver.find_elements_by_css_selector('span.text_5mbkop-o_O-size_micro_16wifzf-o_O-inline_g86r3e')
+    for eachhouse in rent_list:
+        comment = comment.text
+        price = 
+
+
+
+def getSelenium():
+    driver = webdriver.Firefox()
+    driver.get("https://www.dianping.com/search/category/7/10/p1")
+
 def get_movies():
     headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebkit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36',
             'Host':'movie.douban.com'}
@@ -62,9 +118,11 @@ def rpctest():
 
 def main():
     print("init main")
-    movies = get_movies()
-    for i in range(0, len(movies)):
-        print(movies[i])
+   # movies = get_movies()
+   # for i in range(0, len(movies)):
+   #     print(movies[i])
+   # getSelenium()
+    getComment()
 
 if __name__ == "__main__":
     main()
