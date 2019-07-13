@@ -2,7 +2,7 @@ import requests
 import sys
 reload(sys)
 from bs4 import BeautifulSoup
-#sys.setdefaultencoding('utf-8')
+sys.setdefaultencoding('utf-8')
 import json
 def get_movies():
     headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebkit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36',
@@ -17,13 +17,14 @@ def get_movies():
         div_list = soup.find_all('div', class_ = 'hd')
         for each in div_list:
             movie = each.a.span.text.strip()
-            movie_list.append(movie)
+            movie_list.append(movie.encode('utf-8'))
     return movie_list 
 
 
 def getContent():
     link = "http://www.santostang.com/"
     headers = {'User-Agent' : 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 FireFox/3.5.6'}
+  
     r1 = requests.get(link)
     print("coding:", r1.encoding)
     print("status code:", r1.status_code)
@@ -62,7 +63,8 @@ def rpctest():
 def main():
     print("init main")
     movies = get_movies()
-    print (movies)
+    for i in range(0, len(movies)):
+        print(movies[i])
 
 if __name__ == "__main__":
     main()
